@@ -1,0 +1,74 @@
+(function () {
+    'use strict';
+
+    angular.module('Sample.Services')
+        .factory('AccountService', AccountService);
+
+    AccountService.$inject = ['$rootScope', 'Api', 'Cache', 'Loading', '$state', '$location'];
+
+    function AccountService($rootScope, Api, Cache, Loading, $state, $location) {
+
+        var nameToken = "TOKEN_AUTH";
+        var nameEndPointAccess = "AUTH";
+
+        return {
+            login: _login,
+            logout: _logout,
+            reset: _reset,
+            menu: _menu,
+        }
+
+        function _logout() {
+            _reset();
+            $state.go("Login");
+            window.location.reload();
+        }
+
+        function _reset() {
+            Cache.Reset();
+        }
+
+        function _login(email, password, reload) {
+
+
+
+            var apiSSO = new Api.resourse("Auth");
+
+            apiSSO.Data = {
+                ClientId: "Seed",
+                ClientSecret: "secret",
+                Scope: "openid profile ssosa",
+                User: email,
+                Password: password
+            };
+            apiSSO.EndPoint = nameEndPointAccess
+            apiSSO.SuccessHandle = function (result) {
+
+                Cache.Add(nameToken, result.data.accessToken);
+
+                window.location = MakeUrl('#/Home');
+
+                if (reload)
+                    window.location.reload();
+            }
+            apiSSO.Post();
+
+            function MakeUrl(url, noCache) {
+                if (noCache)
+                    return url;
+
+                return url + '?v=' + Math.random();
+            }
+        }
+
+        function _menu(callback) {
+
+            var apiCurrentUser = new Api.resourse("CurrentUser");
+
+            apiCurrentUser.SuccessHandle = function (result) {
+                callback(result)
+            }
+            apiCurrentUser.Get();
+        }
+    };
+})();

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <AssemblyName>Sample.Domain</AssemblyName>
+    <PackageId>Sample.Domain</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Domain\Common.Domain.csproj" />
+    <ProjectReference Include="..\Common.Validation\Common.Validation.csproj" />
+    <ProjectReference Include="..\Sample.Domain.Filter\Sample.Domain.Filter.csproj" />
+    <ProjectReference Include="..\Sample.Enums\Sample.Enums.csproj" />
+  </ItemGroup>
+
+</Project>

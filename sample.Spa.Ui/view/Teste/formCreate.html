@@ -1,0 +1,7 @@
+        <section class="col-md-12">
+                  <div class='form-group'>
+                    <label ng-show='vm.formCrud.nome.$valid || vm.formCrud.nome.$pristine'>{{ ::vm.Labels.nome }}</label>
+                    <label class='alert alert-danger' ng-show='vm.formCrud.nome.$invalid && vm.formCrud.nome.$dirty'>Campo {{ ::vm.Labels.nome }} é obrigatório</label>
+                    <input type='text' class='form-control' ng-model='vm.Model.nome' name='nome' ng-required='true' attributes-c attributes-container='Teste' attributes-field='nome' />
+                </div>        
+        </section>
